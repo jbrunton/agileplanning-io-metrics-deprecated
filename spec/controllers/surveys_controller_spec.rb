@@ -31,6 +31,13 @@ RSpec.describe SurveysController, type: :controller do
     { title: '' }
   }
 
+  let(:valid_answers) {
+    {
+        Question.create!.to_param => { answer: ':)' },
+        Question.create!.to_param => { answer: ':(' },
+    }
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SurveysController. Be sure to keep this updated too.
@@ -168,6 +175,21 @@ RSpec.describe SurveysController, type: :controller do
       question = Question.create!
       get :answer, {:id => survey.to_param}, valid_session
       expect(assigns(:questions)).to eq([question])
+    end
+  end
+
+  describe "POST #respond" do
+    it "assigns the requested survey as @survey" do
+      survey = Survey.create! valid_attributes
+      post :respond, {:id => survey.to_param, :answers => valid_answers}, valid_session
+      expect(assigns(:survey)).to eq(survey)
+    end
+
+    it "creates answer for all of the answers" do
+      survey = Survey.create! valid_attributes
+      expect {
+        post :respond, {:id => survey.to_param, :answers => valid_answers}, valid_session
+      }.to change(Answer, :count).by(2)
     end
   end
 

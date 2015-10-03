@@ -1,0 +1,16 @@
+<%= form_tag(respond_survey_path(@survey)) do %>
+    <% @questions.each do |question| %>
+        <h3><%= question.title %></h3>
+        <p><%= question.description %></p>
+        <%= radio_button_tag("answers[#{question.id}][answer]", ":)") %>
+        <%= label_tag(:text_happy, ":)") %>
+        <%= radio_button_tag("answers[#{question.id}][answer]", ":|") %>
+        <%= label_tag(:text_ok, ":|") %>
+        <%= radio_button_tag("answers[#{question.id}][answer]", ":(") %>
+        <%= label_tag(:text_sad, ":(") %>
+    <% end %>
+
+    <input name="foo" type="hidden" value="bar"/>
+
+    <%= submit_tag %>
+<% end %>

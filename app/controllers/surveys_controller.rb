@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :answer]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :answer, :respond]
 
   # GET /surveys
   # GET /surveys.json
@@ -66,6 +66,14 @@ class SurveysController < ApplicationController
     @questions = Question.all
   end
 
+  # POST /surveys/1/respond
+  def respond
+    logger.info answer_params.to_yaml
+    answer_params.each do |answer_attrs|
+      answer = @survey.answers.create! answer_attrs
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
@@ -75,5 +83,12 @@ class SurveysController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_params
       params.require(:survey).permit(:title)
+    end
+
+    def answer_params
+      params.require(:answers).map do |question_id, answer_attrs|
+        # TODO: when verify question_ids are 'safe' (belong to the survey)
+        ActionController::Parameters.new(answer_attrs.merge(question_id: question_id)).permit(:answer, :question_id)
+      end
     end
 end
