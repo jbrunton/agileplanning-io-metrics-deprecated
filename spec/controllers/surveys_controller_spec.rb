@@ -24,11 +24,11 @@ RSpec.describe SurveysController, type: :controller do
   # Survey. As you add validations to Survey, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { title: 'Some Survey' }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { title: '' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -153,6 +153,21 @@ RSpec.describe SurveysController, type: :controller do
       survey = Survey.create! valid_attributes
       delete :destroy, {:id => survey.to_param}, valid_session
       expect(response).to redirect_to(surveys_url)
+    end
+  end
+
+  describe "GET #answer" do
+    it "assigns the requested survey as @survey" do
+      survey = Survey.create! valid_attributes
+      get :answer, {:id => survey.to_param}, valid_session
+      expect(assigns(:survey)).to eq(survey)
+    end
+
+    it "assigns all questions as @questions" do
+      survey = Survey.create! valid_attributes
+      question = Question.create!
+      get :answer, {:id => survey.to_param}, valid_session
+      expect(assigns(:questions)).to eq([question])
     end
   end
 

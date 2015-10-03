@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :answer]
 
   # GET /surveys
   # GET /surveys.json
@@ -59,6 +59,11 @@ class SurveysController < ApplicationController
       format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /surveys/1/answer
+  def answer
+    @questions = Question.all
   end
 
   private
