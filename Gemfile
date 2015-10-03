@@ -12,6 +12,7 @@ end
 group :production do
   # Postgres for production use on Heroku
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 # Use SCSS for stylesheets
