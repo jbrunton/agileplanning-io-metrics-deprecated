@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :answers
-  resources :surveys
+  resources :surveys do
+    member do
+      get 'answer'
+      post 'respond'
+      get 'responses'
+    end
+  end
   resources :questions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
