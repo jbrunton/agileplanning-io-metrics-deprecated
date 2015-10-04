@@ -7,3 +7,26 @@
     display: inline-block;
   }
 }
+
+.mood {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  &.good {
+    background-image: url('/moods/good.png');
+  }
+}
+
+table.answers {
+  border-spacing: 8px 0;
+  td {
+    text-align: center;
+  }
+}
+
+table.responses {
+  border-spacing: 8px 4px;
+  td {
+    vertical-align: middle;
+  }
+}

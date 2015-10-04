@@ -20,16 +20,21 @@
 
         <div class="inline-errors">
 
-        <%= f.fields_for :answers, a do |a| -%>
-            <%= a.radio_button :answer, ":)" %>
-            <%= label_tag(:text_happy, ":)") %>
-            <%= a.radio_button :answer, ":|" %>
-            <%= label_tag(:text_happy, ":|") %>
-            <%= a.radio_button :answer, ":(" %>
-            <%= label_tag(:text_happy, ":(") %>
-
-            <%= a.hidden_field :question_id, value: q.id %>
-        <% end -%>
+          <%= f.fields_for :answers, a do |a| -%>
+              <table class="answers">
+                <tr>
+                  <td><img src="/moods/good.png"></img></td>
+                  <td><img src="/moods/meh.png"></img></td>
+                  <td><img src="/moods/bad.png"></img></td>
+                </tr>
+                <tr>
+                  <td><%= a.radio_button :answer, "good" %></td>
+                  <td><%= a.radio_button :answer, "meh" %></td>
+                  <td><%= a.radio_button :answer, "bad" %></td>
+                </tr>
+              </table>
+              <%= a.hidden_field :question_id, value: q.id %>
+          <% end -%>
 
         </div>
     <% end -%>
