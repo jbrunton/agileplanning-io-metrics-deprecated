@@ -38,32 +38,18 @@ RSpec.describe ResponsesController, type: :controller do
 
   describe "GET #index" do
     it "assigns all responses as @responses" do
+      survey = Survey.create!(title: 'Some Survey')
       response = Response.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {survey_id: survey.to_param}, valid_session
       expect(assigns(:responses)).to eq([response])
-    end
-  end
-
-  describe "GET #show" do
-    it "assigns the requested response as @response" do
-      response = Response.create! valid_attributes
-      get :show, {:id => response.to_param}, valid_session
-      expect(assigns(:response)).to eq(response)
     end
   end
 
   describe "GET #new" do
     it "assigns a new response as @response" do
-      get :new, {}, valid_session
+      survey = Survey.create!(title: 'Some Survey')
+      get :new, {survey_id: survey.to_param}, valid_session
       expect(assigns(:response)).to be_a_new(Response)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested response as @response" do
-      response = Response.create! valid_attributes
-      get :edit, {:id => response.to_param}, valid_session
-      expect(assigns(:response)).to eq(response)
     end
   end
 
@@ -97,62 +83,6 @@ RSpec.describe ResponsesController, type: :controller do
         post :create, {:response => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
-    end
-  end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested response" do
-        response = Response.create! valid_attributes
-        put :update, {:id => response.to_param, :response => new_attributes}, valid_session
-        response.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested response as @response" do
-        response = Response.create! valid_attributes
-        put :update, {:id => response.to_param, :response => valid_attributes}, valid_session
-        expect(assigns(:response)).to eq(response)
-      end
-
-      it "redirects to the response" do
-        response = Response.create! valid_attributes
-        put :update, {:id => response.to_param, :response => valid_attributes}, valid_session
-        expect(response).to redirect_to(response)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the response as @response" do
-        response = Response.create! valid_attributes
-        put :update, {:id => response.to_param, :response => invalid_attributes}, valid_session
-        expect(assigns(:response)).to eq(response)
-      end
-
-      it "re-renders the 'edit' template" do
-        response = Response.create! valid_attributes
-        put :update, {:id => response.to_param, :response => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested response" do
-      response = Response.create! valid_attributes
-      expect {
-        delete :destroy, {:id => response.to_param}, valid_session
-      }.to change(Response, :count).by(-1)
-    end
-
-    it "redirects to the responses list" do
-      response = Response.create! valid_attributes
-      delete :destroy, {:id => response.to_param}, valid_session
-      expect(response).to redirect_to(responses_url)
     end
   end
 
