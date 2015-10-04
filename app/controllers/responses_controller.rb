@@ -4,7 +4,7 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
-    @responses = Response.all
+    @responses = @survey.responses
     @questions = Question.all
   end
 
