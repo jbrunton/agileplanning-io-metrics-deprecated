@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "Responses", type: :request do
   describe "GET /responses" do
     it "works! (now write some real specs)" do
-      get responses_path
+      survey = Survey.create!(title: 'Some Survey')
+      get survey_responses_path(survey)
       expect(response).to have_http_status(200)
     end
   end
