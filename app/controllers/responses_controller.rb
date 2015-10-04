@@ -5,18 +5,18 @@ class ResponsesController < ApplicationController
   # GET /responses.json
   def index
     @responses = Response.all
+    @questions = Question.all
   end
 
   # GET /responses/new
   def new
-    @response = Response.build
+    @response = Response.build_for(@survey)
   end
 
   # POST /responses
   # POST /responses.json
   def create
     @response = Response.new(response_params)
-    puts "*** answers: #{@response.answers.length}"
 
     respond_to do |format|
       if @response.save

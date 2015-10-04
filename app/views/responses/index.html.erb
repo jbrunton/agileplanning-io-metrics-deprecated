@@ -5,16 +5,25 @@
 <table>
   <thead>
     <tr>
-      <th>Survey</th>
-      <th colspan="2"></th>
+      <th>Question</th>
+      <th>Average</th>
+      <th colspan="<%= @responses.length %>">
+        Individual Responses
+      </th>
     </tr>
   </thead>
 
   <tbody>
-    <% @responses.each do |response| %>
-      <tr>
-        <td><%= response.survey %></td>
-      </tr>
+    <% analysis = @survey.analyze %>
+
+    <% @questions.each do |question| %>
+        <tr>
+          <td><%= question.title %></td>
+          <td><%= analysis[question] %></td>
+          <% @responses.each do |response| %>
+            <td><%= response.answer_for(question).answer %></td>
+          <% end %>
+        </tr>
     <% end %>
   </tbody>
 </table>
