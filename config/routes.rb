@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  resources :responses
   resources :answers
+  resources :questions
   resources :surveys do
     member do
       get 'answer'
       post 'respond'
       get 'responses'
     end
+
+    resources :responses, only: [:index, :new, :create]
   end
-  resources :questions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

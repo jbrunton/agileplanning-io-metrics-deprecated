@@ -1,21 +1,30 @@
-<%= form_for(@response) do |f| %>
-  <% if @response.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
+<%= form_for([@survey, @response]) do |f| %>
+    <% if @response.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
 
-      <ul>
-      <% @response.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @response.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% @response.answers.each do |a| -%>
+
+        <% q = a.question %>
+
+        <h3><%= q.title %></h3>
+        <p><%= q.description %></p>
+
+        <%= f.fields_for :answers, a do |a| -%>
+            <%= a.text_area :answer %>
+            <%= a.hidden_field :question_id, value: q.id %>
+        <% end -%>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :survey_id %><br>
-    <%= f.text_field :survey_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
