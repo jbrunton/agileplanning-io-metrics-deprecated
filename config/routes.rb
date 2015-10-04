@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :answers
   resources :questions
   resources :surveys do
     resources :responses, only: [:index, :new, :create]
