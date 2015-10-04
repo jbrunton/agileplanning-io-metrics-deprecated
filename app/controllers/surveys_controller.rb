@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :answer, :respond]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :answer, :respond, :responses]
 
   # GET /surveys
   # GET /surveys.json
@@ -68,10 +68,14 @@ class SurveysController < ApplicationController
 
   # POST /surveys/1/respond
   def respond
-    logger.info answer_params.to_yaml
     answer_params.each do |answer_attrs|
       answer = @survey.answers.create! answer_attrs
     end
+  end
+
+  # GET /surveys/1/responses
+  def responses
+    @answers_by_question = @survey.answers.all.group_by{ |answer| answer.question }
   end
 
   private

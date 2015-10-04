@@ -193,4 +193,16 @@ RSpec.describe SurveysController, type: :controller do
     end
   end
 
+  describe "GET #responses" do
+    it "assigns the answers grouped by questions to @answers" do
+      survey = Survey.create! valid_attributes
+      question = Question.create!
+      answer = survey.answers.create! question: question
+      get :responses, {:id => survey.to_param}
+      expect(assigns(:answers_by_question)).to eq({
+                  question => [answer]
+              })
+    end
+  end
+
 end
