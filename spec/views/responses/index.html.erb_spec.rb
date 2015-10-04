@@ -2,12 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "responses/index", type: :view do
   before(:each) do
+    survey = Survey.create!(title: 'Some Survey')
+    question = Question.create!(title: 'Some Question')
+    assign(:questions, [question])
+    assign(:survey, survey)
     assign(:responses, [
       Response.create!(
-        :survey => nil
+        :survey => survey
       ),
       Response.create!(
-        :survey => nil
+        :survey => survey
       )
     ])
   end

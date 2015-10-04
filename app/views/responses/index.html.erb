@@ -2,19 +2,41 @@
 
 <h1>Listing Responses</h1>
 
-<table>
+<table class="responses">
   <thead>
     <tr>
-      <th>Survey</th>
-      <th colspan="2"></th>
+      <th>Question</th>
+      <th colspan="2">Average</th>
+      <th colspan="<%= @responses.length %>">
+        Individual Responses
+      </th>
     </tr>
   </thead>
 
   <tbody>
-    <% @responses.each do |response| %>
-      <tr>
-        <td><%= response.survey %></td>
-      </tr>
+    <% analysis = @survey.analyze %>
+
+    <% @questions.each do |question| %>
+        <tr>
+          <td><%= question.title %></td>
+          <% rating = analysis[question] %>
+          <td>
+            <% unless rating.nil? %>
+                <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %> />
+            <% end %>
+          </td>
+          <td>
+            <% unless rating.nil? %>
+                <span><%= sprintf('%.2f', rating) %></span>
+            <% end %>
+          </td>
+          <% @responses.each do |response| %>
+              <% answer = response.answer_for(question) %>
+              <% unless answer.nil? %>
+                <td><img src=<%= "/moods/#{answer.answer}.png" %> /></td>
+              <% end %>
+          <% end %>
+        </tr>
     <% end %>
   </tbody>
 </table>
