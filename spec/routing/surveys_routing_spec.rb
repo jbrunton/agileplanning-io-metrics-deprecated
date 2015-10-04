@@ -35,17 +35,5 @@ RSpec.describe SurveysController, type: :routing do
       expect(:delete => "/surveys/1").to route_to("surveys#destroy", :id => "1")
     end
 
-    it "routes to #answer" do
-      expect(:get => "/surveys/1/answer").to route_to("surveys#answer", :id => "1")
-    end
-
-    it "routes to #respond" do
-      expect(:post => "/surveys/1/respond").to route_to("surveys#respond", :id => "1")
-    end
-
-    it "routes to #responses" do
-      expect(:get => "/surveys/1/responses").to route_to("surveys#responses", :id => "1")
-    end
-
   end
 end

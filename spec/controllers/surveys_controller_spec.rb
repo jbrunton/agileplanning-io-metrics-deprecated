@@ -163,46 +163,4 @@ RSpec.describe SurveysController, type: :controller do
     end
   end
 
-  describe "GET #answer" do
-    it "assigns the requested survey as @survey" do
-      survey = Survey.create! valid_attributes
-      get :answer, {:id => survey.to_param}, valid_session
-      expect(assigns(:survey)).to eq(survey)
-    end
-
-    it "assigns all questions as @questions" do
-      survey = Survey.create! valid_attributes
-      question = Question.create!
-      get :answer, {:id => survey.to_param}, valid_session
-      expect(assigns(:questions)).to eq([question])
-    end
-  end
-
-  describe "POST #respond" do
-    it "assigns the requested survey as @survey" do
-      survey = Survey.create! valid_attributes
-      post :respond, {:id => survey.to_param, :answers => valid_answers}, valid_session
-      expect(assigns(:survey)).to eq(survey)
-    end
-
-    it "creates answer for all of the answers" do
-      survey = Survey.create! valid_attributes
-      expect {
-        post :respond, {:id => survey.to_param, :answers => valid_answers}, valid_session
-      }.to change(Answer, :count).by(2)
-    end
-  end
-
-  describe "GET #responses" do
-    it "assigns the answers grouped by questions to @answers" do
-      survey = Survey.create! valid_attributes
-      question = Question.create!
-      answer = survey.answers.create! question: question
-      get :responses, {:id => survey.to_param}
-      expect(assigns(:answers_by_question)).to eq({
-                  question => [answer]
-              })
-    end
-  end
-
 end
