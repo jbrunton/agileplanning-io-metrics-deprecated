@@ -21,13 +21,20 @@
           <td><%= question.title %></td>
           <% rating = analysis[question] %>
           <td>
-            <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %> />
+            <% unless rating.nil? %>
+                <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %> />
+            <% end %>
           </td>
           <td>
-            <span><%= sprintf('%.2f', rating) %></span>
+            <% unless rating.nil? %>
+                <span><%= sprintf('%.2f', rating) %></span>
+            <% end %>
           </td>
           <% @responses.each do |response| %>
-            <td><img src=<%= "/moods/#{response.answer_for(question).answer}.png" %> /></td>
+              <% answer = response.answer_for(question) %>
+              <% unless answer.nil? %>
+                <td><img src=<%= "/moods/#{answer.answer}.png" %> /></td>
+              <% end %>
           <% end %>
         </tr>
     <% end %>
