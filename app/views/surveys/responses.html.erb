@@ -1,9 +1,0 @@
-<% @answers_by_question.each do |question, answers| %>
-    <h3><%= question.title %></h3>
-    <p><%= question.description %></p>
-
-    <% answers.each do |answer| %>
-        <%= answer.answer %>
-    <% end %>
-
-<% end %>

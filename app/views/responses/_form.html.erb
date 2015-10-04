@@ -15,33 +15,43 @@
 
         <% q = a.question %>
 
-        <h3><%= q.title %></h3>
-        <p><%= q.description %></p>
+        <div class="row">
+          <div class="large-9 medium-8 small-12 columns">
+            <h3><%= q.title %></h3>
 
-        <div class="inline-errors">
+            <p><%= q.description %></p>
+          </div>
 
-          <%= f.fields_for :answers, a do |a| -%>
-              <table class="answers">
-                <tr>
-                  <td><img src="/moods/good.png"></img></td>
-                  <td><img src="/moods/meh.png"></img></td>
-                  <td><img src="/moods/bad.png"></img></td>
-                </tr>
-                <tr>
-                  <td><%= a.radio_button :answer, "good" %></td>
-                  <td><%= a.radio_button :answer, "meh" %></td>
-                  <td><%= a.radio_button :answer, "bad" %></td>
-                </tr>
-              </table>
-              <%= a.hidden_field :question_id, value: q.id %>
-          <% end -%>
+          <div class="large-3 medium-4 small-12 columns">
+            <div class="inline-errors">
+
+              <%= f.fields_for :answers, a do |a| -%>
+                  <table class="answers">
+                    <tr>
+                      <td><img src="/moods/good.png"></img></td>
+                      <td><img src="/moods/meh.png"></img></td>
+                      <td><img src="/moods/bad.png"></img></td>
+                    </tr>
+                    <tr>
+                      <td><%= a.radio_button :answer, "good" %></td>
+                      <td><%= a.radio_button :answer, "meh" %></td>
+                      <td><%= a.radio_button :answer, "bad" %></td>
+                    </tr>
+                  </table>
+                  <%= a.hidden_field :question_id, value: q.id %>
+              <% end -%>
+
+            </div>
+          </div>
 
         </div>
+
+
     <% end -%>
 
     <%= f.hidden_field :survey_id, value: @survey.id %>
 
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit 'Submit', class: 'radius button' %>
     </div>
 <% end %>

@@ -18,7 +18,11 @@
 }
 
 table.answers {
+  border: none;
   border-spacing: 8px 0;
+  tr {
+    background-color: #fff;
+  }
   td {
     text-align: center;
   }
