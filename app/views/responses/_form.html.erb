@@ -18,10 +18,20 @@
         <h3><%= q.title %></h3>
         <p><%= q.description %></p>
 
+        <div class="inline-errors">
+
         <%= f.fields_for :answers, a do |a| -%>
-            <%= a.text_area :answer %>
+            <%= a.radio_button :answer, ":)" %>
+            <%= label_tag(:text_happy, ":)") %>
+            <%= a.radio_button :answer, ":|" %>
+            <%= label_tag(:text_happy, ":|") %>
+            <%= a.radio_button :answer, ":(" %>
+            <%= label_tag(:text_happy, ":(") %>
+
             <%= a.hidden_field :question_id, value: q.id %>
         <% end -%>
+
+        </div>
     <% end -%>
 
     <div class="actions">
