@@ -22,7 +22,7 @@
           <% rating = analysis[question] %>
           <td>
             <% unless rating.nil? %>
-                <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %> />
+                <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %>/>
             <% end %>
           </td>
           <td>
@@ -33,12 +33,10 @@
           <% @responses.each do |response| %>
               <% answer = response.answer_for(question) %>
               <% unless answer.nil? %>
-                <td><img src=<%= "/moods/#{answer.answer}.png" %> /></td>
+                  <td><img src=<%= "/moods/#{answer.answer}.png" %>/></td>
               <% end %>
           <% end %>
         </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
