@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Survey</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @responses.each do |response| %>
+      <tr>
+        <td><%= response.survey %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

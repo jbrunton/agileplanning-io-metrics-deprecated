@@ -1,0 +1,40 @@
+<%= form_for([@survey, @response]) do |f| %>
+    <% if @response.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
+
+          <ul>
+            <% @response.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% @response.answers.each do |a| -%>
+
+        <% q = a.question %>
+
+        <h3><%= q.title %></h3>
+        <p><%= q.description %></p>
+
+        <div class="inline-errors">
+
+        <%= f.fields_for :answers, a do |a| -%>
+            <%= a.radio_button :answer, ":)" %>
+            <%= label_tag(:text_happy, ":)") %>
+            <%= a.radio_button :answer, ":|" %>
+            <%= label_tag(:text_happy, ":|") %>
+            <%= a.radio_button :answer, ":(" %>
+            <%= label_tag(:text_happy, ":(") %>
+
+            <%= a.hidden_field :question_id, value: q.id %>
+        <% end -%>
+
+        </div>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

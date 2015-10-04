@@ -24,11 +24,18 @@ RSpec.describe SurveysController, type: :controller do
   # Survey. As you add validations to Survey, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { title: 'Some Survey' }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { title: '' }
+  }
+
+  let(:valid_answers) {
+    {
+        Question.create!.to_param => { answer: ':)' },
+        Question.create!.to_param => { answer: ':(' },
+    }
   }
 
   # This should return the minimal set of values that should be in the session
