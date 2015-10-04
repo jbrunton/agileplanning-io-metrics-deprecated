@@ -20,7 +20,7 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to @survey, notice: 'Response was successfully created.' }
+        format.html { redirect_to survey_responses_path(@survey), notice: 'Thanks for your response!' }
         format.json { render :show, status: :created, location: @response }
       else
         format.html { render :new }
