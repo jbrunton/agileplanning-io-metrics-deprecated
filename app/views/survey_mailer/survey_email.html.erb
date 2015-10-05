@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @survey.title %></h1>
+    <p>
+      You've been invited to participate in this survey.
+    </p>
+    <p>
+      To submit your response, <%= link_to 'follow this link', new_survey_response_url(@survey) %>.
+    </p>
+    <p>
+      You can see the responses so far <%= link_to 'here', survey_responses_url(@survey) %>.
+    </p>
+  </body>
+</html>
