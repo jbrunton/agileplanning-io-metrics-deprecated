@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "schedules/new", type: :view do
   before(:each) do
-    assign(:schedule, Schedule.new(
-      :frequency => 1,
-      :title => "MyString",
-      :recipients => "MyText"
-    ))
+    assign(:schedule, build(:schedule))
   end
 
   it "renders new schedule form" do
