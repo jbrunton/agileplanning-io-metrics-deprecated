@@ -58,5 +58,6 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
+  gem 'guard-rspec', require: false
 end
 
