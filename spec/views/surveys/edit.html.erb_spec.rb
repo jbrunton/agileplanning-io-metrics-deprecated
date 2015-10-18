@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "surveys/edit", type: :view do
   before(:each) do
-    @survey = assign(:survey, Survey.create!(
-      :title => "MyString"
-    ))
+    @survey = assign(:survey, create(:survey))
   end
 
   it "renders the edit survey form" do

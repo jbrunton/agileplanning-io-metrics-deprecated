@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "surveys/new", type: :view do
   before(:each) do
-    assign(:survey, Survey.new(
-      :title => "MyString"
-    ))
+    assign(:survey, build(:survey))
   end
 
   it "renders new survey form" do
