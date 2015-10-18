@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "surveys/show", type: :view do
   before(:each) do
-    @survey = assign(:survey, Survey.create!(
-      :title => "Title"
-    ))
+    @survey = assign(:survey, create(:survey))
   end
 
   it "renders attributes in <p>" do

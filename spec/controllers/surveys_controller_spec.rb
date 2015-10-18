@@ -19,23 +19,8 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe SurveysController, type: :controller do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Survey. As you add validations to Survey, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    { title: 'Some Survey' }
-  }
-
   let(:invalid_attributes) {
     { title: '' }
-  }
-
-  let(:valid_answers) {
-    {
-        Question.create!.to_param => { answer: ':)' },
-        Question.create!.to_param => { answer: ':(' },
-    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -45,7 +30,7 @@ RSpec.describe SurveysController, type: :controller do
 
   describe "GET #index" do
     it "assigns all surveys as @surveys" do
-      survey = Survey.create! valid_attributes
+      survey = create(:survey)
       get :index, {}, valid_session
       expect(assigns(:surveys)).to eq([survey])
     end
@@ -53,7 +38,7 @@ RSpec.describe SurveysController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested survey as @survey" do
-      survey = Survey.create! valid_attributes
+      survey = create(:survey)
       get :show, {:id => survey.to_param}, valid_session
       expect(assigns(:survey)).to eq(survey)
     end
@@ -68,7 +53,7 @@ RSpec.describe SurveysController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested survey as @survey" do
-      survey = Survey.create! valid_attributes
+      survey = create(:survey)
       get :edit, {:id => survey.to_param}, valid_session
       expect(assigns(:survey)).to eq(survey)
     end
@@ -78,18 +63,18 @@ RSpec.describe SurveysController, type: :controller do
     context "with valid params" do
       it "creates a new Survey" do
         expect {
-          post :create, {:survey => valid_attributes}, valid_session
+          post :create, {:survey => attributes_for(:survey)}, valid_session
         }.to change(Survey, :count).by(1)
       end
 
       it "assigns a newly created survey as @survey" do
-        post :create, {:survey => valid_attributes}, valid_session
+        post :create, {:survey => attributes_for(:survey)}, valid_session
         expect(assigns(:survey)).to be_a(Survey)
         expect(assigns(:survey)).to be_persisted
       end
 
       it "redirects to the created survey" do
-        post :create, {:survey => valid_attributes}, valid_session
+        post :create, {:survey => attributes_for(:survey)}, valid_session
         expect(response).to redirect_to(Survey.last)
       end
     end
@@ -114,34 +99,34 @@ RSpec.describe SurveysController, type: :controller do
       }
 
       it "updates the requested survey" do
-        survey = Survey.create! valid_attributes
+        survey = create(:survey)
         put :update, {:id => survey.to_param, :survey => new_attributes}, valid_session
         survey.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested survey as @survey" do
-        survey = Survey.create! valid_attributes
-        put :update, {:id => survey.to_param, :survey => valid_attributes}, valid_session
+        survey = create(:survey)
+        put :update, {:id => survey.to_param, :survey => attributes_for(:survey)}, valid_session
         expect(assigns(:survey)).to eq(survey)
       end
 
       it "redirects to the survey" do
-        survey = Survey.create! valid_attributes
-        put :update, {:id => survey.to_param, :survey => valid_attributes}, valid_session
+        survey = create(:survey)
+        put :update, {:id => survey.to_param, :survey => attributes_for(:survey)}, valid_session
         expect(response).to redirect_to(survey)
       end
     end
 
     context "with invalid params" do
       it "assigns the survey as @survey" do
-        survey = Survey.create! valid_attributes
+        survey = create(:survey)
         put :update, {:id => survey.to_param, :survey => invalid_attributes}, valid_session
         expect(assigns(:survey)).to eq(survey)
       end
 
       it "re-renders the 'edit' template" do
-        survey = Survey.create! valid_attributes
+        survey = create(:survey)
         put :update, {:id => survey.to_param, :survey => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -150,14 +135,14 @@ RSpec.describe SurveysController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested survey" do
-      survey = Survey.create! valid_attributes
+      survey = create(:survey)
       expect {
         delete :destroy, {:id => survey.to_param}, valid_session
       }.to change(Survey, :count).by(-1)
     end
 
     it "redirects to the surveys list" do
-      survey = Survey.create! valid_attributes
+      survey = create(:survey)
       delete :destroy, {:id => survey.to_param}, valid_session
       expect(response).to redirect_to(surveys_url)
     end

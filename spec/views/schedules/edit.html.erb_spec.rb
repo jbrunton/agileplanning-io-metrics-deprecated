@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "schedules/edit", type: :view do
   before(:each) do
-    @schedule = assign(:schedule, Schedule.create!(
-      :frequency => 1,
-      :title => "MyString",
-      :recipients => "MyText"
-    ))
+    @schedule = assign(:schedule, create(:schedule))
   end
 
   it "renders the edit schedule form" do

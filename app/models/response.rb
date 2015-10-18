@@ -8,7 +8,7 @@ class Response < ActiveRecord::Base
   validates :survey_id, presence: true
 
   def self.build_for(survey)
-    response = Response.new
+    response = Response.new(survey: survey)
     response.answers = Question.all.map do |question|
       Answer.new(question: question)
     end
