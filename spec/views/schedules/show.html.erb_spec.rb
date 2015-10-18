@@ -8,7 +8,7 @@ RSpec.describe "schedules/show", type: :view do
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/1/)
-    expect(rendered).to match(/Schedule 1/)
-    expect(rendered).to match(/recipient1@example\.com/)
+    expect(rendered).to match(/Schedule \d+/)
+    expect(rendered).to match(/recipient\d+@example\.com/)
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe "questions/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Question 1/)
-    expect(rendered).to match(/Question 1 description/)
+    expect(rendered).to match(/Question \d+/)
+    expect(rendered).to match(/Question \d+ description/)
   end
 end
