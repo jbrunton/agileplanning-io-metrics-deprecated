@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :schedules
   resources :questions
   resources :surveys do
     resources :responses, only: [:index, :new, :show, :create]
