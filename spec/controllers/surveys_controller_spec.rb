@@ -23,13 +23,6 @@ RSpec.describe SurveysController, type: :controller do
     { title: '' }
   }
 
-  let(:valid_answers) {
-    {
-        Question.create!.to_param => { answer: ':)' },
-        Question.create!.to_param => { answer: ':(' },
-    }
-  }
-
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SurveysController. Be sure to keep this updated too.
