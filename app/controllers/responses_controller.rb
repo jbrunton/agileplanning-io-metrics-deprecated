@@ -23,6 +23,7 @@ class ResponsesController < ApplicationController
         format.html { redirect_to survey_responses_path(@survey), notice: 'Thanks for your response!' }
         format.json { render :show, status: :created, location: @response }
       else
+        puts "ERRORS: " + @response.errors.to_json
         format.html { render :new }
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end

@@ -20,15 +20,18 @@ require 'rails_helper'
 
 RSpec.describe ResponsesController, type: :controller do
 
+  let(:survey) { survey = create(:survey) }
+
   # This should return the minimal set of attributes required to create a valid
   # Response. As you add validations to Response, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    # TODO: why is this factory not assigning a survey_id?
+    attributes_for(:response).merge(survey_id: survey.id)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:response).merge(survey: nil)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,8 +41,7 @@ RSpec.describe ResponsesController, type: :controller do
 
   describe "GET #index" do
     it "assigns all responses as @responses" do
-      survey = Survey.create!(title: 'Some Survey')
-      response = Response.create! valid_attributes
+      response = create(:response, survey: survey)
       get :index, {survey_id: survey.to_param}, valid_session
       expect(assigns(:responses)).to eq([response])
     end
@@ -47,7 +49,6 @@ RSpec.describe ResponsesController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new response as @response" do
-      survey = Survey.create!(title: 'Some Survey')
       get :new, {survey_id: survey.to_param}, valid_session
       expect(assigns(:response)).to be_a_new(Response)
     end
@@ -57,30 +58,30 @@ RSpec.describe ResponsesController, type: :controller do
     context "with valid params" do
       it "creates a new Response" do
         expect {
-          post :create, {:response => valid_attributes}, valid_session
+          post :create, {survey_id: survey.to_param, :response => valid_attributes}, valid_session
         }.to change(Response, :count).by(1)
       end
 
       it "assigns a newly created response as @response" do
-        post :create, {:response => valid_attributes}, valid_session
+        post :create, {survey_id: survey.to_param, :response => valid_attributes}, valid_session
         expect(assigns(:response)).to be_a(Response)
         expect(assigns(:response)).to be_persisted
       end
 
-      it "redirects to the created response" do
-        post :create, {:response => valid_attributes}, valid_session
-        expect(response).to redirect_to(Response.last)
+      it "redirects to the survey responses" do
+        post :create, {survey_id: survey.to_param, :response => valid_attributes}, valid_session
+        expect(response).to redirect_to(survey_responses_path(survey))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved response as @response" do
-        post :create, {:response => invalid_attributes}, valid_session
+        post :create, {survey_id: survey.to_param, :response => invalid_attributes}, valid_session
         expect(assigns(:response)).to be_a_new(Response)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:response => invalid_attributes}, valid_session
+        post :create, {survey_id: survey.to_param, :response => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
