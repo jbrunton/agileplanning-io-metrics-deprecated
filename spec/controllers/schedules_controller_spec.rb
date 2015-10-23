@@ -24,11 +24,11 @@ RSpec.describe SchedulesController, type: :controller do
   # Schedule. As you add validations to Schedule, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:schedule)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:schedule).merge(title: '')
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,7 +38,7 @@ RSpec.describe SchedulesController, type: :controller do
 
   describe "GET #index" do
     it "assigns all schedules as @schedules" do
-      schedule = Schedule.create! valid_attributes
+      schedule = create(:schedule)
       get :index, {}, valid_session
       expect(assigns(:schedules)).to eq([schedule])
     end
@@ -46,7 +46,7 @@ RSpec.describe SchedulesController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested schedule as @schedule" do
-      schedule = Schedule.create! valid_attributes
+      schedule = create(:schedule)
       get :show, {:id => schedule.to_param}, valid_session
       expect(assigns(:schedule)).to eq(schedule)
     end
@@ -61,7 +61,7 @@ RSpec.describe SchedulesController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested schedule as @schedule" do
-      schedule = Schedule.create! valid_attributes
+      schedule = create(:schedule)
       get :edit, {:id => schedule.to_param}, valid_session
       expect(assigns(:schedule)).to eq(schedule)
     end
@@ -103,24 +103,27 @@ RSpec.describe SchedulesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:schedule)
       }
 
       it "updates the requested schedule" do
-        schedule = Schedule.create! valid_attributes
+        schedule = create(:schedule)
+
         put :update, {:id => schedule.to_param, :schedule => new_attributes}, valid_session
         schedule.reload
-        skip("Add assertions for updated state")
+
+        updated_attributes = schedule.attributes.slice('title', 'frequency', 'recipients').symbolize_keys
+        expect(updated_attributes).to eq(new_attributes)
       end
 
       it "assigns the requested schedule as @schedule" do
-        schedule = Schedule.create! valid_attributes
+        schedule = create(:schedule)
         put :update, {:id => schedule.to_param, :schedule => valid_attributes}, valid_session
         expect(assigns(:schedule)).to eq(schedule)
       end
 
       it "redirects to the schedule" do
-        schedule = Schedule.create! valid_attributes
+        schedule = create(:schedule)
         put :update, {:id => schedule.to_param, :schedule => valid_attributes}, valid_session
         expect(response).to redirect_to(schedule)
       end
@@ -128,13 +131,13 @@ RSpec.describe SchedulesController, type: :controller do
 
     context "with invalid params" do
       it "assigns the schedule as @schedule" do
-        schedule = Schedule.create! valid_attributes
+        schedule = create(:schedule)
         put :update, {:id => schedule.to_param, :schedule => invalid_attributes}, valid_session
         expect(assigns(:schedule)).to eq(schedule)
       end
 
       it "re-renders the 'edit' template" do
-        schedule = Schedule.create! valid_attributes
+        schedule = create(:schedule)
         put :update, {:id => schedule.to_param, :schedule => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -143,14 +146,14 @@ RSpec.describe SchedulesController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested schedule" do
-      schedule = Schedule.create! valid_attributes
+      schedule = create(:schedule)
       expect {
         delete :destroy, {:id => schedule.to_param}, valid_session
       }.to change(Schedule, :count).by(-1)
     end
 
     it "redirects to the schedules list" do
-      schedule = Schedule.create! valid_attributes
+      schedule = create(:schedule)
       delete :destroy, {:id => schedule.to_param}, valid_session
       expect(response).to redirect_to(schedules_url)
     end

@@ -104,7 +104,7 @@ RSpec.describe QuestionsController, type: :controller do
       }
 
       it "updates the requested question" do
-        question = Question.create! valid_attributes
+        question = create(:question)
 
         put :update, {:id => question.to_param, :question => new_attributes}, valid_session
         question.reload
@@ -114,13 +114,13 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it "assigns the requested question as @question" do
-        question = Question.create! valid_attributes
+        question = create(:question)
         put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
         expect(assigns(:question)).to eq(question)
       end
 
       it "redirects to the question" do
-        question = Question.create! valid_attributes
+        question = create(:question)
         put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
         expect(response).to redirect_to(question)
       end
