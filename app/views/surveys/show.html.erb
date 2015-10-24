@@ -1,7 +1,26 @@
-<p>
-  <strong>Title:</strong>
-  <%= @survey.title %>
-</p>
+<h1><%= @survey.title %></h1>
 
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>
+<div class="row">
+  <div class="small-6 columns">
+    <%= link_to 'Take', new_survey_response_path(@survey), class: 'round button' %> the survey
+    or <%= link_to 'View', survey_responses_path(@survey), class: 'round button' %> responses.
+
+  </div>
+  <div class="small-6 columns">
+    <div class="radius panel">
+      <h3>Administer</h3>
+      <%= link_to 'Edit', edit_survey_path(@survey), class: 'round button' %> the survey.
+      <div class="row collapse">
+        <div class="small-2 columns">
+          <label class="right inline">Share</label>
+        </div>
+        <div class="small-8 columns">
+          <input type="text" value="<%= new_survey_response_url(@survey) %>"/>
+        </div>
+        <div class="small-2 columns">
+          <a id="copy-join-link" class="button postfix" data-clipboard-text="<%= new_survey_response_url(@survey) %>" href="#">Copy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
