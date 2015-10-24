@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :schedules
   resources :questions
   resources :surveys do
