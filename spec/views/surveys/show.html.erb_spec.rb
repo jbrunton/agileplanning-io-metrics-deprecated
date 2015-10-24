@@ -7,6 +7,6 @@ RSpec.describe "surveys/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Title/)
+    expect(rendered).to match(/Survey \d+/)
   end
 end
