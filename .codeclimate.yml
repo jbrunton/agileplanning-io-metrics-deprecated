@@ -48,4 +48,5 @@ ratings:
 exclude_paths:
 - spec/**/*
 - vendor/**/*
-- db/schema.rb
+- db/**/*
+- config/**/*
