@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   root 'home#index'
 
+  resources :teams do
+    resources :surveys, shallow: true do
+      resources :responses, only: [:index, :new, :show, :create]
+    end
+  end
+
   resources :schedules
   resources :questions
-  resources :surveys do
-    resources :responses, only: [:index, :new, :show, :create]
-  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

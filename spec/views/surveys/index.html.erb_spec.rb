@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "surveys/index", type: :view do
   before(:each) do
+    assign(:team, create(:team))
     assign(:surveys, [
-            create(:survey),
-            create(:survey)
+            create(:survey, team: @team),
+            create(:survey, team: @team)
     ])
   end
 
