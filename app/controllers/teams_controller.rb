@@ -23,6 +23,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/trends
   def trends
+    @trends_report = TeamTrendsReport.new(@team)
   end
 
   # POST /teams
