@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :teams do
+    member do
+      get 'trends'
+    end
+
     resources :surveys, shallow: true do
       resources :responses, only: [:index, :new, :show, :create]
     end

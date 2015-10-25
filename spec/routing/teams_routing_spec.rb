@@ -35,5 +35,9 @@ RSpec.describe TeamsController, type: :routing do
       expect(:delete => "/teams/1").to route_to("teams#destroy", :id => "1")
     end
 
+    it "routes to #trends" do
+      expect(:get => "/teams/1/trends").to route_to("teams#trends", :id => "1")
+    end
+
   end
 end
