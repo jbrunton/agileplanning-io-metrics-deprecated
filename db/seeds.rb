@@ -18,7 +18,7 @@ surveys.each do |survey|
   3.times do
     response = Response.build_for(survey)
     response.answers.each do |answer|
-      answer.answer = ['good', 'bad', 'meh'][3 % (rand(3) + 1)]
+      answer.answer = ['good', 'meh', 'bad'][(rand(3) + 1) % 3]
     end
     response.save!
   end
