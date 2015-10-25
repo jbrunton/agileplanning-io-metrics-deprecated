@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :answer do
-    answer ':)'
+    answer 'good'
   end
 end

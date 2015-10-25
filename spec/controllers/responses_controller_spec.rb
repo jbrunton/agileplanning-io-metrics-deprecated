@@ -40,10 +40,13 @@ RSpec.describe ResponsesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all responses as @responses" do
+    it "assigns a SurveyReport as @survey_report" do
       response = create(:response, survey: survey)
+
       get :index, {survey_id: survey.to_param}, valid_session
-      expect(assigns(:responses)).to eq([response])
+
+      expect(assigns(:survey_report)).to be_a(SurveyReport)
+      expect(assigns(:survey_report).survey).to eq(survey)
     end
   end
 

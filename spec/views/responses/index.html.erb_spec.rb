@@ -3,17 +3,10 @@ require 'rails_helper'
 RSpec.describe "responses/index", type: :view do
   before(:each) do
     survey = create(:survey)
-    question = create(:question)
-    assign(:questions, [question])
+    create(:question)
+    responses = [create(:response, survey: survey)]
     assign(:survey, survey)
-    assign(:responses, [
-      Response.create!(
-        :survey => survey
-      ),
-      Response.create!(
-        :survey => survey
-      )
-    ])
+    assign(:survey_report, SurveyReport.new(survey))
   end
 
   it "renders a list of responses" do
