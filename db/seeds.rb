@@ -6,4 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Survey.create(title: 'Test Survey')
+team = Team.create(name: 'My Team')
+
+surveys = [
+    Survey.create(title: 'Test Survey', team: team, created_at: 21.days.ago),
+    Survey.create(title: 'Test Survey', team: team, created_at: 14.days.ago),
+    Survey.create(title: 'Test Survey', team: team, created_at: 7.days.ago)
+]
+
+surveys.each do |survey|
+  3.times do
+    response = Response.build_for(survey)
+    response.answers.each do |answer|
+      answer.answer = ['good', 'meh', 'bad'][(rand(3) + 1) % 3]
+    end
+    response.save!
+  end
+end

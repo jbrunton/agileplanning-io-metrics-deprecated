@@ -67,6 +67,18 @@ RSpec.describe TeamsController, type: :controller do
     end
   end
 
+  describe "GET #trends" do
+    it "assigns the team as @team" do
+      team = create(:team)
+
+      get :trends, {:id => team.to_param}, valid_session
+
+      expect(assigns(:team)).to eq(team)
+      expect(assigns(:trends_report)).to be_a(TeamTrendsReport)
+      expect(assigns(:trends_report).team).to eq(team)
+    end
+  end
+
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Team" do

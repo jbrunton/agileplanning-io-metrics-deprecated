@@ -15,6 +15,10 @@ class Response < ActiveRecord::Base
     response
   end
 
+  def questions
+    answers.map{ |answer| answer.question }
+  end
+
   def answer_for(question)
     answers.find_by(question_id: question.id)
   end

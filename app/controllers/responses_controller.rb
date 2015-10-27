@@ -4,8 +4,7 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
-    @responses = @survey.responses
-    @questions = Question.all
+    @survey_report = SurveyReport.new(@survey)
   end
 
   # GET /responses/new

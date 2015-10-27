@@ -7,19 +7,17 @@
     <tr>
       <th>Question</th>
       <th colspan="2">Average</th>
-      <th colspan="<%= @responses.length %>">
+      <th colspan="<%= @survey.responses.length %>">
         Individual Responses
       </th>
     </tr>
   </thead>
 
   <tbody>
-    <% analysis = @survey.analyze %>
-
-    <% @questions.each do |question| %>
+    <% @survey_report.questions.each do |question| %>
         <tr>
           <td><%= question.title %></td>
-          <% rating = analysis[question] %>
+          <% rating = @survey_report.aggregate_rating_for(question) %>
           <td>
             <% unless rating.nil? %>
                 <img src=<%= "/moods/#{Answer.categorize(rating)}.png" %>/>
@@ -30,8 +28,7 @@
                 <span><%= sprintf('%.2f', rating) %></span>
             <% end %>
           </td>
-          <% @responses.each do |response| %>
-              <% answer = response.answer_for(question) %>
+          <% @survey_report.answers_for(question).each do |answer| %>
               <% unless answer.nil? %>
                   <td><img src=<%= "/moods/#{answer.answer}.png" %>/></td>
               <% end %>

@@ -2,8 +2,9 @@ FactoryGirl.define do
   factory :response do
     survey
     answers do
-      question = create(:question)
-      [create(:answer, question: question)]
+      questions = Question.all
+      questions = [create(:question)] if questions.empty?
+      questions.map{ |question| create(:answer, question: question) }
     end
   end
 end

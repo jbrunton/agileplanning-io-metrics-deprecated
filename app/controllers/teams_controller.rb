@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :trends]
 
   # GET /teams
   # GET /teams.json
@@ -19,6 +19,11 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+  end
+
+  # GET /teams/1/trends
+  def trends
+    @trends_report = TeamTrendsReport.new(@team)
   end
 
   # POST /teams
