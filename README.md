@@ -8,3 +8,19 @@
 This will be an app for automating Spotify style [squad health checks](https://labs.spotify.com/2014/09/16/squad-health-check-model/).
 
 Work in progress. Suggestions and contributions welcome.
+
+## setup
+
+    # required ruby version
+    rvm install ruby-2.2.1
+    gem install bundler
+    # install dependencies
+    bundle install
+    # rails migrate
+    rake db:migrate && RAILS_ENV=test rake db:migrate
+    # load up some sample data
+    rake db:seed
+
+## testing
+
+    rspec
